@@ -30,7 +30,52 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
 
+int main() {
+    char text[200], key[200], out[200];
+    
+    printf("Enter UPPERCASE text: ");
+    scanf("%199s", text);
+
+    printf("Enter UPPERCASE key: ");
+    scanf("%199s", key);
+
+    // check uppercase
+    for (int i = 0; text[i]; i++)
+        if (!isupper(text[i])) { printf("Text must be UPPERCASE!\n"); return 0; }
+
+    for (int i = 0; key[i]; i++)
+        if (!isupper(key[i])) { printf("Key must be UPPERCASE!\n"); return 0; }
+
+    int n = strlen(text), k = strlen(key);
+
+    // Encrypt
+    for (int i = 0; i < n; i++) {
+        int shift = key[i % k] - 'A';
+        out[i] = ((text[i] - 'A') + shift) % 26 + 'A';
+    }
+    out[n] = '\0';
+    printf("Encrypted: %s\n", out);
+
+    // Decrypt
+    for (int i = 0; i < n; i++) {
+        int shift = key[i % k] - 'A';
+        out[i] = ((out[i] - 'A') - shift + 26) % 26 + 'A';
+    }
+    out[n] = '\0';
+    printf("Decrypted: %s\n", out);
+
+    return 0;
+}
+
+
+```
 ## OUTPUT
+<img width="1466" height="548" alt="image" src="https://github.com/user-attachments/assets/ad9472fd-f189-4422-901a-7818aa8e092c" />
 
 ## RESULT
+Hence the Vigenere Cipher substitution technique has been implemented successfully using C program.
